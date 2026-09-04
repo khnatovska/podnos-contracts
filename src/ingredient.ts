@@ -18,4 +18,6 @@ export const ingredientListResponseSchema = zod.object({
 
 export type Ingredient = zod.infer<typeof ingredientSchema>;
 export type IngredientWriteInput = zod.infer<typeof ingredientWriteInputSchema>;
-export type IngredientListResponse = zod.infer<typeof ingredientListResponseSchema>;
+export type IngredientListResponse = zod.infer<
+    typeof ingredientListResponseSchema
+>;
