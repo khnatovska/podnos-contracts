@@ -31,16 +31,16 @@ export type IngredientKind = (typeof INGREDIENT_KINDS)[number];
 export const ingredientKindSchema = zod.enum(INGREDIENT_KINDS);
 
 /**
- * The kinds the "key ingredients" panel ranks — `aromatic` and `pantry` are
- * background noise there. An allowlist on purpose: a new kind is shown only
- * once someone decides it belongs.
+ * The kinds the "key ingredients" panel ranks, in the order it groups them —
+ * protein first (the "am I eating the same protein all week?" check), then
+ * vegetables, then fruit. Everything else (grains, fats, aromatics, pantry) is
+ * background there. An allowlist on purpose: a new kind is shown only once
+ * someone decides it belongs, and where.
  */
 export const KEY_INGREDIENT_KINDS: readonly IngredientKind[] = [
     'protein',
     'vegetable',
     'fruit',
-    'grain',
-    'fat',
 ];
 
 export const ingredientSchema = zod.object({

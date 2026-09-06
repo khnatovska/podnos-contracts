@@ -30,9 +30,11 @@ describe('ingredientSchema', () => {
 });
 
 describe('KEY_INGREDIENT_KINDS', () => {
-    it('is the panel-worthy subset — no aromatic or pantry', () => {
-        expect(KEY_INGREDIENT_KINDS).not.toContain('aromatic');
-        expect(KEY_INGREDIENT_KINDS).not.toContain('pantry');
+    it('is protein → vegetable → fruit, in that grouping order', () => {
+        expect(KEY_INGREDIENT_KINDS).toEqual(['protein', 'vegetable', 'fruit']);
+    });
+
+    it('every entry is a real kind', () => {
         for (const kind of KEY_INGREDIENT_KINDS) {
             expect(INGREDIENT_KINDS).toContain(kind);
         }
