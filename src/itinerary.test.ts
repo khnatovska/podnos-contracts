@@ -28,6 +28,20 @@ const goodView: WeeklyScheduleView = {
                             recipeId: 'r-00000000001',
                             recipeName: 'Oatmeal',
                             labels: [{ id: 'l-00000000001', name: 'vegan' }],
+                            ingredients: [
+                                {
+                                    ingredientId: 'i-00000000001',
+                                    name: 'oats',
+                                    quantity: 80,
+                                    unit: 'g',
+                                },
+                                {
+                                    ingredientId: 'i-00000000002',
+                                    name: 'milk',
+                                    quantity: 200,
+                                    unit: 'ml',
+                                },
+                            ],
                             share: 100,
                         },
                     ],
@@ -40,12 +54,21 @@ const goodView: WeeklyScheduleView = {
                             recipeId: 'r-00000000002',
                             recipeName: 'Rice',
                             labels: [],
+                            ingredients: [
+                                {
+                                    ingredientId: 'i-00000000003',
+                                    name: 'rice',
+                                    quantity: 150,
+                                    unit: 'g',
+                                },
+                            ],
                             share: 60,
                         },
                         {
                             recipeId: 'r-00000000003',
                             recipeName: 'Curry',
                             labels: [],
+                            ingredients: [],
                             share: 40,
                         },
                     ],
@@ -64,6 +87,7 @@ const goodView: WeeklyScheduleView = {
                             recipeId: 'r-00000000004',
                             recipeName: 'Salad',
                             labels: [],
+                            ingredients: [],
                             share: 100,
                         },
                     ],
@@ -101,5 +125,38 @@ describe('weeklyScheduleViewSchema', () => {
             createdAt: 'not-a-timestamp',
         });
         expect(parsed.success).toBe(false);
+    });
+
+    it('keeps each entry’s full ingredient list on the parsed view', () => {
+        const parsed = weeklyScheduleViewSchema.parse(goodView);
+        const oatmeal = parsed.days
+            .flatMap((day) => day.plates)
+            .flatMap((plate) => plate.entries)
+            .find((entry) => entry.recipeName === 'Oatmeal');
+
+        expect(oatmeal?.ingredients).toEqual([
+            {
+                ingredientId: 'i-00000000001',
+                name: 'oats',
+                quantity: 80,
+                unit: 'g',
+            },
+            {
+                ingredientId: 'i-00000000002',
+                name: 'milk',
+                quantity: 200,
+                unit: 'ml',
+            },
+        ]);
+    });
+
+    it('rejects an entry with no ingredients array', () => {
+        const bad = JSON.parse(JSON.stringify(goodView)) as {
+            days: { plates: { entries: Record<string, unknown>[] }[] }[];
+        };
+        const entry = bad.days[0]?.plates[0]?.entries[0];
+        if (entry) delete entry.ingredients;
+
+        expect(weeklyScheduleViewSchema.safeParse(bad).success).toBe(false);
     });
 });

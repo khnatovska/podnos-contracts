@@ -6,6 +6,7 @@ import {
     WEEKLY_SCHEDULE_ID_FORMAT,
 } from './ids.ts';
 import { labelSchema } from './label.ts';
+import { recipeIngredientViewSchema } from './recipe.ts';
 
 /**
  * Meal planning is modelled at four nested levels:
@@ -20,9 +21,11 @@ import { labelSchema } from './label.ts';
  *   *WriteInputSchema  what a client sends when creating / replacing that level
  *   *RecordSchema      what the repository persists — generated ids + `recipeId`
  *                      references, no recipe data copied in
- *   *ViewSchema        a trimmed, human-readable read projection: adds the
- *                      recipe's `recipeName` and `labels`, resolved live from
- *                      the recipe repo, never ingredients or steps
+ *   *ViewSchema        a read projection: adds the recipe's `recipeName`,
+ *                      `labels` and `ingredients`, resolved live from the recipe
+ *                      repo — enough to render and edit a plan client-side (and
+ *                      re-derive its highlights / shopping list) without a
+ *                      second fetch. Still no `steps` or `description`.
  *
  * A plate always feeds MEAL_HEADCOUNT people in this iteration (see
  * constants.ts), so an entry carries no absolute portion — only `share`, the
@@ -51,6 +54,7 @@ export const plateEntryViewSchema = zod.object({
     recipeId: RECIPE_ID_FORMAT(),
     recipeName: zod.string().min(1),
     labels: zod.array(labelSchema),
+    ingredients: zod.array(recipeIngredientViewSchema),
     share: plateShareSchema,
 });
 
