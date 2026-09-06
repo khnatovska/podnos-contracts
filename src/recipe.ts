@@ -4,6 +4,7 @@ import {
     RECIPE_ID_FORMAT,
     LABEL_ID_FORMAT,
 } from './ids.ts';
+import { ingredientKindSchema } from './ingredient.ts';
 import { labelSchema } from './label.ts';
 
 export const recipeIngredientWriteInputSchema = zod.object({
@@ -15,6 +16,8 @@ export const recipeIngredientWriteInputSchema = zod.object({
 export const recipeIngredientViewSchema = zod.object({
     ingredientId: INGREDIENT_ID_FORMAT(),
     name: zod.string().min(1),
+    /** Resolved from the ingredient, like `name` — the recipe author only references an id. */
+    kind: ingredientKindSchema,
     quantity: zod.number().positive(),
     unit: zod.string().min(1),
 });
