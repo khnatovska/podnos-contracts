@@ -32,12 +32,14 @@ const goodView: WeeklyScheduleView = {
                                 {
                                     ingredientId: 'i-00000000001',
                                     name: 'oats',
+                                    kind: 'grain',
                                     quantity: 80,
                                     unit: 'g',
                                 },
                                 {
                                     ingredientId: 'i-00000000002',
                                     name: 'milk',
+                                    kind: 'protein',
                                     quantity: 200,
                                     unit: 'ml',
                                 },
@@ -58,6 +60,7 @@ const goodView: WeeklyScheduleView = {
                                 {
                                     ingredientId: 'i-00000000003',
                                     name: 'rice',
+                                    kind: 'grain',
                                     quantity: 150,
                                     unit: 'g',
                                 },
@@ -138,12 +141,14 @@ describe('weeklyScheduleViewSchema', () => {
             {
                 ingredientId: 'i-00000000001',
                 name: 'oats',
+                kind: 'grain',
                 quantity: 80,
                 unit: 'g',
             },
             {
                 ingredientId: 'i-00000000002',
                 name: 'milk',
+                kind: 'protein',
                 quantity: 200,
                 unit: 'ml',
             },
