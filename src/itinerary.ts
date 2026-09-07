@@ -35,7 +35,9 @@ import { recipeIngredientViewSchema } from './recipe.ts';
  * {@link scheduleWriteInputSchema} discriminated union.
  */
 
-export const mealSlotSchema = zod.enum(['breakfast', 'lunch', 'dinner']);
+/** The day's meal slots, in the order they happen. */
+export const MEAL_SLOTS = ['breakfast', 'lunch', 'dinner'] as const;
+export const mealSlotSchema = zod.enum(MEAL_SLOTS);
 export type MealSlot = zod.infer<typeof mealSlotSchema>;
 
 /* --------------------------------------------------------------------------- *
