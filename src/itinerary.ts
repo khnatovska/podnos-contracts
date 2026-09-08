@@ -2,7 +2,6 @@ import { z as zod } from 'zod';
 import {
     RECIPE_ID_FORMAT,
     PLATE_ID_FORMAT,
-    DAILY_MEAL_ID_FORMAT,
     WEEKLY_SCHEDULE_ID_FORMAT,
 } from './ids.ts';
 import { labelSchema } from './label.ts';
@@ -100,7 +99,6 @@ export const dailyMealWriteInputSchema = zod.object({
 });
 
 export const dailyMealViewSchema = zod.object({
-    id: DAILY_MEAL_ID_FORMAT(),
     date: zod.iso.date(),
     plates: zod.array(plateViewSchema),
 });
@@ -110,7 +108,6 @@ export const dailyMealViewSchema = zod.object({
  * --------------------------------------------------------------------------- */
 
 export const weeklyScheduleWriteInputSchema = zod.object({
-    name: zod.string().min(1),
     days: zod
         .array(dailyMealWriteInputSchema)
         .min(1)
@@ -122,7 +119,6 @@ export const weeklyScheduleWriteInputSchema = zod.object({
 
 export const weeklyScheduleViewSchema = zod.object({
     id: WEEKLY_SCHEDULE_ID_FORMAT(),
-    name: zod.string().min(1),
     startDate: zod.iso.date(),
     endDate: zod.iso.date(),
     days: zod.array(dailyMealViewSchema),
@@ -135,7 +131,6 @@ export const weeklyScheduleViewSchema = zod.object({
  */
 export const weeklyScheduleSummaryViewSchema = zod.object({
     id: WEEKLY_SCHEDULE_ID_FORMAT(),
-    name: zod.string().min(1),
     startDate: zod.iso.date(),
     endDate: zod.iso.date(),
     dayCount: zod.number().int().nonnegative(),

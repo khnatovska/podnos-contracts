@@ -26,7 +26,14 @@ export const recipeWriteInputSchema = zod.object({
     id: RECIPE_ID_FORMAT(),
     name: zod.string().min(1),
     description: zod.string(),
-    ingredients: zod.array(recipeIngredientWriteInputSchema),
+    ingredients: zod
+        .array(recipeIngredientWriteInputSchema)
+        .refine(
+            (ingredients) =>
+                new Set(ingredients.map((i) => i.ingredientId)).size ===
+                ingredients.length,
+            { message: 'a recipe cannot list the same ingredient twice' },
+        ),
     steps: zod.array(zod.string().min(1)),
     labelIds: zod.array(LABEL_ID_FORMAT()),
 });
