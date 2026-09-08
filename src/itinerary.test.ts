@@ -11,13 +11,11 @@ import {
  */
 const goodView: WeeklyScheduleView = {
     id: 'w-00000000001',
-    name: 'Week of the 4th',
     startDate: '2026-09-04',
     endDate: '2026-09-05',
     createdAt: '2026-09-01T12:00:00Z',
     days: [
         {
-            id: 'd-00000000001',
             date: '2026-09-04',
             plates: [
                 {
@@ -79,7 +77,6 @@ const goodView: WeeklyScheduleView = {
             ],
         },
         {
-            id: 'd-00000000002',
             date: '2026-09-05',
             plates: [
                 {
