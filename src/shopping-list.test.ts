@@ -110,7 +110,7 @@ describe('shoppingListSchema', () => {
 
 describe('STAPLE_INGREDIENT_KINDS', () => {
     it('is the kinds hidden by default in the drawer', () => {
-        expect(STAPLE_INGREDIENT_KINDS).toEqual(['aromatic', 'pantry']);
+        expect(STAPLE_INGREDIENT_KINDS).toEqual(['grain', 'pantry']);
     });
 
     it('every entry is a real ingredient kind', () => {
