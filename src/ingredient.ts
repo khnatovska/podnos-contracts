@@ -43,16 +43,41 @@ export const KEY_INGREDIENT_KINDS: readonly IngredientKind[] = [
     'fruit',
 ];
 
+/**
+ * Which grocery-store aisle an ingredient is shopped from — independent of
+ * {@link IngredientKind}, which is nutritional. The two disagree on purpose:
+ * avocado is a `fat` (why it's on the plate) but shops as `produce`; canned
+ * tomatoes are a `vegetable` but shop as `pantry_spices`. Drives the shopping
+ * list's grouping; `kind` keeps driving its "buy only" filter.
+ *
+ * No `frozen` category yet — the one frozen ingredient in the current seed
+ * (frozen berries) is filed under `produce` for now. Add `frozen` once there
+ * are enough frozen ingredients to earn its own shopping-list section.
+ */
+export const GROCERY_CATEGORIES = [
+    'meat_fish',
+    'dairy_eggs',
+    'produce',
+    'grains_bread',
+    'nuts_seeds',
+    'pantry_spices',
+] as const;
+export type GroceryCategory = (typeof GROCERY_CATEGORIES)[number];
+
+export const groceryCategorySchema = zod.enum(GROCERY_CATEGORIES);
+
 export const ingredientSchema = zod.object({
     id: INGREDIENT_ID_FORMAT(),
     name: zod.string().min(1),
     kind: ingredientKindSchema,
+    groceryCategory: groceryCategorySchema,
 });
 
 export const ingredientWriteInputSchema = zod.object({
     id: INGREDIENT_ID_FORMAT(),
     name: zod.string().min(1),
     kind: ingredientKindSchema,
+    groceryCategory: groceryCategorySchema,
 });
 
 export const ingredientListResponseSchema = zod.object({
