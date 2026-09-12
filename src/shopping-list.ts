@@ -75,6 +75,6 @@ export type ShoppingList = zod.infer<typeof shoppingListSchema>;
  * A presentation default, kept here so the planner and the web client agree.
  */
 export const STAPLE_INGREDIENT_KINDS: readonly IngredientKind[] = [
-    'aromatic',
+    'grain',
     'pantry',
 ];
