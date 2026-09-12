@@ -1,6 +1,6 @@
 # @podnos/contracts
 
-Shared [Zod](https://zod.dev) schemas and inferred TypeScript types for the Podnos meal-planning app — the single source of truth for the data shapes exchanged between its backend and frontend (ingredients, labels, recipes, and the nested plate / daily-meal / weekly-schedule itinerary model, each with write-input, persisted-record, and read-view variants, plus the shopping list a weekly schedule implies). It ships compiled `.js` plus `.d.ts` from `dist/`, has no runtime dependencies, and takes `zod` as a peer dependency.
+Shared [Zod](https://zod.dev) schemas and inferred TypeScript types for the Podnos meal-planning app — the single source of truth for the data shapes exchanged between its backend and frontend (ingredients — each with a nutritional `kind` and a shopping `groceryCategory` — labels, recipes, and the nested plate / daily-meal / weekly-schedule itinerary model, each with write-input, persisted-record, and read-view variants, plus the shopping list a weekly schedule implies). It ships compiled `.js` plus `.d.ts` from `dist/`, has no runtime dependencies, and takes `zod` as a peer dependency.
 
 ## Install
 

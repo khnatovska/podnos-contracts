@@ -20,6 +20,7 @@ const good: ShoppingList = {
             ingredientId: 'i-00000000009',
             name: 'сир',
             kind: 'protein',
+            groceryCategory: 'dairy_eggs',
             unit: 'г',
             quantity: 300,
             sources: [
@@ -43,6 +44,7 @@ const good: ShoppingList = {
             ingredientId: 'i-00000000013',
             name: 'часник',
             kind: 'aromatic',
+            groceryCategory: 'produce',
             unit: 'зубчик',
             quantity: 4,
             sources: [

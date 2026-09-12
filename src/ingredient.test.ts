@@ -9,6 +9,7 @@ const good = {
     id: 'i-00000000001',
     name: 'куряче філе',
     kind: 'protein',
+    groceryCategory: 'meat_fish',
 } as const;
 
 describe('ingredientSchema', () => {

@@ -4,7 +4,11 @@ import {
     RECIPE_ID_FORMAT,
     WEEKLY_SCHEDULE_ID_FORMAT,
 } from './ids.ts';
-import { ingredientKindSchema, type IngredientKind } from './ingredient.ts';
+import {
+    ingredientKindSchema,
+    groceryCategorySchema,
+    type IngredientKind,
+} from './ingredient.ts';
 import { mealSlotSchema } from './itinerary.ts';
 
 /**
@@ -39,10 +43,13 @@ export const shoppingListItemSchema = zod.object({
     ingredientId: INGREDIENT_ID_FORMAT(),
     name: zod.string().min(1),
     /**
-     * Drives the drawer's sections and its "buy only" toggle —
-     * see {@link STAPLE_INGREDIENT_KINDS}.
+     * Drives the drawer's "buy only" toggle — see
+     * {@link STAPLE_INGREDIENT_KINDS}. No longer drives its sections; see
+     * `groceryCategory`.
      */
     kind: ingredientKindSchema,
+    /** Drives the drawer's sections — which aisle this line is shopped from. */
+    groceryCategory: groceryCategorySchema,
     unit: zod.string().min(1),
     /** Sum of `sources[].quantity`. */
     quantity: zod.number().positive(),
