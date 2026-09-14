@@ -24,8 +24,8 @@ export const recipeIngredientViewSchema = zod.object({
     unit: zod.string().min(1),
 });
 
+/** No `id` — the server mints one on creation, like every other write path. */
 export const recipeWriteInputSchema = zod.object({
-    id: RECIPE_ID_FORMAT(),
     name: zod.string().min(1),
     description: zod.string(),
     ingredients: zod

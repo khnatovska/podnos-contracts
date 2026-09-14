@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { recipeWriteInputSchema } from './recipe.ts';
 
 const base = {
-    id: 'r-00000000001',
     name: 'Салат',
     description: '',
     ingredients: [
