@@ -73,8 +73,8 @@ export const ingredientSchema = zod.object({
     groceryCategory: groceryCategorySchema,
 });
 
+/** No `id` — the server mints one on creation, like every other write path. */
 export const ingredientWriteInputSchema = zod.object({
-    id: INGREDIENT_ID_FORMAT(),
     name: zod.string().min(1),
     kind: ingredientKindSchema,
     groceryCategory: groceryCategorySchema,
