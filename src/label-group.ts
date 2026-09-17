@@ -35,6 +35,7 @@ export const LABELS = [
     { key: 'protein', name: 'білок', group: 'category' },
     { key: 'complexCarbs', name: 'складні вуглеводи', group: 'category' },
     { key: 'healthyFats', name: 'корисні жири', group: 'category' },
+    { key: 'fruit', name: 'фрукти', group: 'category' },
     { key: 'flourFree', name: 'без борошна', group: 'diet' },
     { key: 'sugarFree', name: 'без цукру', group: 'diet' },
     { key: 'highFiber', name: 'багато клітковини', group: 'nutrition' },
