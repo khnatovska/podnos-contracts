@@ -57,7 +57,8 @@ export const shoppingListItemSchema = zod.object({
 });
 
 export const shoppingListSchema = zod.object({
-    scheduleId: WEEKLY_SCHEDULE_ID_FORMAT(),
+    /** `null` for a working copy that hasn't been saved as a real week yet. */
+    scheduleId: WEEKLY_SCHEDULE_ID_FORMAT().nullable(),
     startDate: zod.iso.date(),
     endDate: zod.iso.date(),
     items: zod.array(shoppingListItemSchema),

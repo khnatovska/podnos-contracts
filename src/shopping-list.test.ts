@@ -82,6 +82,15 @@ describe('shoppingListSchema', () => {
         ).toBe(false);
     });
 
+    it('accepts a null scheduleId, for an unsaved working copy', () => {
+        const parsed = shoppingListSchema.safeParse({
+            ...good,
+            scheduleId: null,
+        });
+        expect(parsed.success).toBe(true);
+        expect(parsed.data?.scheduleId).toBeNull();
+    });
+
     it('rejects an item with no sources', () => {
         const bad = {
             ...good,
