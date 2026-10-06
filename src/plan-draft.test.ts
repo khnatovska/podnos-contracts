@@ -72,6 +72,7 @@ const goodView: WeeklyScheduleDraftView = {
                                         unit: 'g',
                                     },
                                 ],
+                                steps: [],
                             },
                         },
                     ],
@@ -114,6 +115,37 @@ describe('weeklyScheduleDraftViewSchema', () => {
             newRecipe: { ingredients: unknown[] };
         };
         entry.newRecipe.ingredients = [];
+
+        expect(weeklyScheduleDraftViewSchema.safeParse(bad).success).toBe(
+            false,
+        );
+    });
+
+    it('accepts a new plate entry whose newRecipe has typed-in steps', () => {
+        const withSteps = JSON.parse(JSON.stringify(goodView)) as {
+            days: { plates: { entries: Record<string, unknown>[] }[] }[];
+        };
+        const entry = withSteps.days[0]!.plates[1]!.entries[0]! as {
+            newRecipe: { steps: string[] };
+        };
+        entry.newRecipe.steps = [
+            'Запекти лосось 12 хвилин.',
+            'Подати з кіноа.',
+        ];
+
+        expect(weeklyScheduleDraftViewSchema.safeParse(withSteps).success).toBe(
+            true,
+        );
+    });
+
+    it('rejects a new plate entry whose newRecipe is missing steps', () => {
+        const bad = JSON.parse(JSON.stringify(goodView)) as {
+            days: { plates: { entries: Record<string, unknown>[] }[] }[];
+        };
+        const entry = bad.days[0]!.plates[1]!.entries[0]! as {
+            newRecipe: Record<string, unknown>;
+        };
+        delete entry.newRecipe.steps;
 
         expect(weeklyScheduleDraftViewSchema.safeParse(bad).success).toBe(
             false,

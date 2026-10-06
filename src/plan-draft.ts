@@ -79,6 +79,14 @@ export const plateEntryDraftViewSchema = zod.discriminatedUnion('kind', [
             /** Short: what it is + why proposed. */
             rationale: zod.string().min(1),
             ingredients: zod.array(recipeIngredientDraftViewSchema).min(1),
+            /**
+             * Not proposed by generation yet — always `[]` on a freshly
+             * generated draft. Exists so the client can type steps during
+             * review and have them survive the session the same way a
+             * name/ingredient correction does, carried through to
+             * `scheduleWriteInputSchema` once accepted.
+             */
+            steps: zod.array(zod.string().min(1)),
         }),
     }),
 ]);
