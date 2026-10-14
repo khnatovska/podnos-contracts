@@ -107,6 +107,25 @@ export const dailyMealViewSchema = zod.object({
  * weeklySchedule — daily meals across a week
  * --------------------------------------------------------------------------- */
 
+/**
+ * A plan's lifecycle, one-way only: `draft` (has days/plates, still being
+ * shaped) → `approved` (confirmed — this is the moment a shopping list gets
+ * connected to the week) → `shopped` (groceries bought) → `prepped` (meal
+ * prep for the week is done). Promoted from `podnos-back`'s own
+ * backend-local copy (`PLAN_STATUSES` in `schemas/itinerary.schema.ts`) now
+ * that a client (the dashboard's next-week-status widget) needs it on the
+ * wire; the status-transition write API doesn't exist yet, so every plan is
+ * still created as `draft` and stays there in practice.
+ */
+export const PLAN_STATUSES = [
+    'draft',
+    'approved',
+    'shopped',
+    'prepped',
+] as const;
+export type PlanStatus = (typeof PLAN_STATUSES)[number];
+export const planStatusSchema = zod.enum(PLAN_STATUSES);
+
 export const weeklyScheduleWriteInputSchema = zod.object({
     days: zod
         .array(dailyMealWriteInputSchema)
@@ -123,6 +142,7 @@ export const weeklyScheduleViewSchema = zod.object({
     endDate: zod.iso.date(),
     days: zod.array(dailyMealViewSchema),
     createdAt: zod.iso.datetime(),
+    status: planStatusSchema,
 });
 
 /**
@@ -136,6 +156,7 @@ export const weeklyScheduleSummaryViewSchema = zod.object({
     dayCount: zod.number().int().nonnegative(),
     plateCount: zod.number().int().nonnegative(),
     recipeCount: zod.number().int().nonnegative(),
+    status: planStatusSchema,
 });
 
 export const weeklyScheduleListResponseSchema = zod.object({

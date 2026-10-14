@@ -14,6 +14,7 @@ const goodView: WeeklyScheduleView = {
     startDate: '2026-09-04',
     endDate: '2026-09-05',
     createdAt: '2026-09-01T12:00:00Z',
+    status: 'draft',
     days: [
         {
             date: '2026-09-04',
